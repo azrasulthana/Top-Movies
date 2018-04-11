@@ -7,7 +7,9 @@ RUN npm install
 COPY . /usr/src/app
 EXPOSE 4200
 CMD ["npm","start"]
-RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz \
-  && tar xzvf docker-17.04.0-ce.tgz \
+ENV DOCKERVERSION=17.12.0-ce
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
+  && mv docker-${DOCKERVERSION}.tgz docker.tgz \
+  && tar xzvf docker.tgz \
   && mv docker/docker /usr/local/bin \
-  && rm -r docker docker-17.04.0-ce.tgz
+  && rm -r docker docker.tgz
